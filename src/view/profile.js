@@ -1,4 +1,4 @@
-export default () =>{
+export default () => {
   const viewProfile = `
       <h1>Aquí va el profile☆</h1>
   `

@@ -1,4 +1,4 @@
-export default () =>{
+export default () => {
   const viewHome = `
       <h1>Aquí va el feed ☆</h1>
   `
