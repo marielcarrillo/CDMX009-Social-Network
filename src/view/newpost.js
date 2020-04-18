@@ -21,10 +21,12 @@ export default () => {
   // nodos
   const divElement = document.createElement('div');
   divElement.innerHTML = viewNewPost;
+
+  // firestore elements
   const firestore = firebase.firestore();
+  const docRef = firestore.doc('samples/bichos');
 
   // get the div elements
-  const docRef = firestore.doc('samples/bichos');
   const uploadImg = divElement.querySelector('#imgUpload');
   const newImg = divElement.querySelector('#newPost');
   const shareImg = divElement.querySelector('#btnShare');
