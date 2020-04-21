@@ -1,8 +1,8 @@
 export default () => {
   // firebase
-  let db = firebase.firestore();
-  let storage = firebase.storage();
-  let docRef = db.collection('posts');
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+  const docRef = db.collection('posts');
 
   // var globales
   let url;
@@ -15,8 +15,7 @@ export default () => {
           <input id="registerLocation" type = "text" placeholder = "Ubicación" required>
           <button class="btn" id = "btnShare"> Share </button>
 
-         <div>
-         <img src="" id="newPost" width="300px" height="200px">
+         <div class="preview" id="here">
          </div>
       </form>
   </main>
@@ -41,16 +40,20 @@ export default () => {
   // Display the image
   imgUpload.onchange = function (e) {
     // FileReader permite leer files o blob del lado cliente de manera asíncrona
-    let reader = new FileReader();
+    const reader = new FileReader();
     // Lee el archivo y lo manda a FileReader
     reader.readAsDataURL(e.target.files[0]);
     // Cuando esté listo, ejecuta el código
     reader.onload = function () {
-      const image = divElement.querySelector('#newPost');
+      const preview = divElement.querySelector('#here'),
+        image = document.createElement('img');
+
       image.src = reader.result;
-      image.innerHTML = '';
+      preview.innerHTML = '';
+      preview.append(image);
     };
   };
+
   // func + listener for uploading the image to storage
   imgUpload.addEventListener('change', (e) => {
   // get file
@@ -79,7 +82,7 @@ export default () => {
       description: descr,
       location: loc,
       date: firebase.firestore.Timestamp.fromDate(new Date()),
-    }).then(e => console.log('ok'));
+    }).then(console.log('ok C:'));
   });
 
   return divElement;
