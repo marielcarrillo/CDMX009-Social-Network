@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { changeView } from '../view-controler/router.js';
 
 export default () => {
@@ -8,11 +9,14 @@ export default () => {
         </div>
         <div class = "formContainer">
             <form class = "inputForm" id = "form">
+              <div id = 'imgContainer'>
                 <input type="file" id="img" name="img" accept="image/*">
+                <img id = "myimg" src= "" width='100%' height='100%'>
+              </div>
                 <input class = "registerInput" id = "signupUser" type = "text" placeholder = "Username" required>
                 <input class = "registerInput" id = "signupEmail" type = "email" placeholder = "Email" required> 
                 <input class = "registerInput" id = "signupPassword" type = "password" placeholder = "Password" required> 
-                <button class= "btn" id = "signup"> Sign up! </button>
+                <input class= "btn" id = "signup" type = "submit"> Sign up! 
             </form>
         </div>
         <div class = "createAccout">
@@ -29,25 +33,62 @@ export default () => {
   divElement.innerHTML = viewNewUser;
 
   // Nodes from DOM elements
+  const div = divElement.querySelector('#imgContainer');
+  const image = divElement.querySelector('#img');
+  const username = divElement.querySelector('#signupUser');
   const emailText = divElement.querySelector('#signupEmail');
   const passwordText = divElement.querySelector('#signupPassword');
   const signupBtn = divElement.querySelector('#signup');
   const fbBtn = divElement.querySelector('#fb');
   const gBtn = divElement.querySelector('#google');
-  const auth = firebase.auth();
+
+  // profile img
+  image.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+
+    const x = firebase.storage().ref('profilePics').child(file.name).put(file)
+      .then(snap => snap.ref.getDownloadURL())
+
+      .then((url) => {
+        const img = divElement.querySelector('#myimg');
+        // let img = document.getElementById('myimg');
+        img.src = url;
+        // div.style.backgroundImage = url
+        console.log(url);
+      });
+
+
+    console.log(x);
+  });
+
 
   // signup with Email
   signupBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     const email = emailText.value;
     const pass = passwordText.value;
-    
+    const auth = firebase.auth();
 
     const promise = auth.createUserWithEmailAndPassword(email, pass);
+    promise.then((data) => {
+      const photo = url.value;
+      const name = username.value;
+      data.user.updateProfile({
+        displayName: name,
+        photoURL: photo,
+      });
+      promise.then(cred => {
+        console.log(cred.user)
+      });
+      console.log(promise);
+    });
     promise.then(e => changeView('#/login'));
   });
 
   // facebook sign up
   fbBtn.addEventListener('click', () => {
+    const auth = firebase.auth();
     const provider = new firebase.auth.FacebookAuthProvider();
     const promise = auth.signInWithPopup(provider);
 
@@ -60,6 +101,7 @@ export default () => {
 
   // google sign up
   gBtn.addEventListener('click', () => {
+    const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
     const promise = auth.signInWithPopup(provider);
 

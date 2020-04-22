@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-cycle
+import { changeView } from '../view-controler/router.js';
+
 export default () => {
   // firebase
   const db = firebase.firestore();
@@ -37,7 +40,7 @@ export default () => {
   const registerDescription = divElement.querySelector('#registerDescription');
   const registerLocation = divElement.querySelector('#registerLocation');
 
-  // Display the image
+  // Preview the image
   imgUpload.onchange = function (e) {
     // FileReader permite leer files o blob del lado cliente de manera asíncrona
     const reader = new FileReader();
@@ -82,7 +85,7 @@ export default () => {
       description: descr,
       location: loc,
       date: firebase.firestore.Timestamp.fromDate(new Date()),
-    }).then(console.log('ok C:'));
+    }).then(e => changeView('#/home'));
   });
 
   return divElement;

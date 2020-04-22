@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { changeView } from '../view-controler/router.js';
 
 export default () => {
@@ -6,7 +7,6 @@ export default () => {
     <input type="email" placeholder="Email" id="emailText"> </input>
     <input type="password" placeholder="Password" id="passwordText"> </input>
     <button class="btn" id="loginBtn"> Login </button>
-    <button class="btn" id="logoutBtn"> Logout </button>
     </form>
   `;
 
@@ -29,16 +29,6 @@ export default () => {
     const promise = auth.signInWithEmailAndPassword(email, pass);
     promise.then(e => changeView('#/home'));
     promise.catch(e => console.log(alert(e.message)));
-  });
-
-  // logout
-  const logout = divElement.querySelector('#logoutBtn');
-  logout.addEventListener('click', (e) => {
-    e.preventDefault();
-    auth.signOut().then(() => {
-      console.log('user signed out');
-      alert('Come back soon!');
-    });
   });
 
   return divElement;
