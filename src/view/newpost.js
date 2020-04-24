@@ -5,7 +5,7 @@ export default () => {
   // firebase
   const db = firebase.firestore();
   const storage = firebase.storage();
-  const docRef = db.collection('posts');
+  const docRef = db.collection('testpost');
 
   // var globales
   let url;
@@ -17,7 +17,6 @@ export default () => {
           <input id="registerDescription" type = "text" placeholder = "Descripción" required>
           <input id="registerLocation" type = "text" placeholder = "Ubicación" required>
           <button class="btn" id = "btnShare"> Share </button>
-
          <div class="preview" id="here">
          </div>
       </form>
@@ -40,7 +39,7 @@ export default () => {
   const registerDescription = divElement.querySelector('#registerDescription');
   const registerLocation = divElement.querySelector('#registerLocation');
 
-  // Preview the image
+  // Display the image
   imgUpload.onchange = function (e) {
     // FileReader permite leer files o blob del lado cliente de manera asíncrona
     const reader = new FileReader();
@@ -48,8 +47,8 @@ export default () => {
     reader.readAsDataURL(e.target.files[0]);
     // Cuando esté listo, ejecuta el código
     reader.onload = function () {
-      const preview = divElement.querySelector('#here'),
-        image = document.createElement('img');
+      const preview = divElement.querySelector('#here');
+      const image = document.createElement('img');
 
       image.src = reader.result;
       preview.innerHTML = '';
@@ -85,7 +84,8 @@ export default () => {
       description: descr,
       location: loc,
       date: firebase.firestore.Timestamp.fromDate(new Date()),
-    }).then(e => changeView('#/home'));
+      counter: 0,
+    }).then(changeView('#/home'));
   });
 
   return divElement;

@@ -15,6 +15,11 @@ export default () => {
   const postsRef = db.collection('posts');
   const auth = firebase.auth();
 
+  //  checking user status
+  auth.onAuthStateChanged((user) => {
+    console.log(user);
+  });
+
   // calling the docs and adding to the html
   postsRef.onSnapshot((snap) => {
     const p = document.querySelector('#posts');
