@@ -26,6 +26,7 @@ export default () => {
     p.innerHTML = '';
     snap.forEach((doc) => {
       const div = `<div>
+            <p>${doc.data().user}</p>
             <p>${doc.data().date}</p>
             <img width="200" src="${doc.data().postimg}" />
             <p>${doc.data().description}</p>

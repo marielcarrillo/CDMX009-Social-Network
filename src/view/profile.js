@@ -9,8 +9,8 @@ export default () => {
   // nodos
   const divElement = document.createElement('div');
   divElement.innerHTML = viewProfile;
-  const db = firebase.firestore();
-  const auth = firebase.auth();
+  // const db = firebase.firestore();
+  // const auth = firebase.auth();
 
   // elementos del DOM
   const showInfo = divElement.querySelector('#profile');
@@ -19,7 +19,12 @@ export default () => {
   const user = firebase.auth().currentUser;
   if (user != null) {
     const profileInfo = `
-   <div> Logged in as ${user.email} </div>`;
+   <div> 
+   <img src="${user.photoURL}"> 
+   <p> Name: ${user.displayName} </p>
+   <p> Bio: ${user.bio} </p>
+   </div>
+   `;
     showInfo.innerHTML = profileInfo;
   }
   return divElement;

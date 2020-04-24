@@ -5,7 +5,7 @@ export default () => {
   // firebase
   const db = firebase.firestore();
   const storage = firebase.storage();
-  const docRef = db.collection('testpost');
+  const docRef = db.collection('posts');
 
   // var globales
   let url;
@@ -78,14 +78,15 @@ export default () => {
   shareImg.addEventListener('click', (e) => {
     const descr = registerDescription.value;
     const loc = registerLocation.value;
-
+    const user = firebase.auth().currentUser;
     docRef.add({
+      user: user.displayName,
       postimg: url,
       description: descr,
       location: loc,
       date: firebase.firestore.Timestamp.fromDate(new Date()),
       counter: 0,
-    }).then(changeView('#/home'));
+    }).then(() => changeView('#/home'));
   });
 
   return divElement;
