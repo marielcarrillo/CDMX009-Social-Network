@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { changeView } from '../view-controler/router.js';
 
 export default () => {
@@ -35,6 +36,7 @@ export default () => {
   const storage = firebase.storage();
   const db = firebase.firestore();
   const auth = firebase.auth();
+  const user = auth.currentUser;
 
   // Nodes from DOM elements
   const div = divElement.querySelector('#imgContainer');
@@ -46,10 +48,6 @@ export default () => {
   const fbBtn = divElement.querySelector('#fb');
   const gBtn = divElement.querySelector('#google');
   let url;
-
-  auth.onAuthStateChanged((user) => {
-    console.log(user);
-  });
 
   // profile img
   image.addEventListener('change', (e) => {
@@ -74,12 +72,12 @@ export default () => {
     const pass = passwordText.value;
     const username = usernameText.value;
 
-    auth.createUserWithEmailAndPassword(email, pass).then(cred => db.collection('users').doc(cred.user.uid).set({
-      uid: cred.user.uid,
-      photoURL: url,
-      displayName: username,
-      bio: '¿biologx o novatx?',
-    })).then(e => changeView('#/home'));
+    auth.createUserWithEmailAndPassword(email, pass).then((snap) => {
+      snap.user.updateProfile({
+        displayName: username,
+        photoURL: url,
+      });
+    }).then(() => changeView('#/home'));
   });
 
   // facebook sign up

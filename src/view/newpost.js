@@ -86,7 +86,7 @@ export default () => {
       location: loc,
       date: firebase.firestore.Timestamp.fromDate(new Date()),
       counter: 0,
-    }).then(() => changeView('#/home'));
+    }).then(console.log(docRef.add));
   });
 
   return divElement;
