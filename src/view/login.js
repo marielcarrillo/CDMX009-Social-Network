@@ -42,7 +42,7 @@ export default () => {
 
     //  check the user status
     auth.onAuthStateChanged((user) => {
-      if (user) {
+      if (user != null) {
         console.log(`user logged in${user}`);
       } else {
         console.log('no user found ');
