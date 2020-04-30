@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-cycle
-import { changeView } from '../view-controler/router.js';
 
 export default () => {
   // firebase
@@ -9,24 +7,41 @@ export default () => {
 
   // var globales
   let url;
-
-  const viewNewPost = `<div class = "gridContainer">
-  <main>
-      <form class = "inputForm">
-          <input type="file" id="imgUpload" name="img" accept="image/*">
-          <input id="registerDescription" type = "text" placeholder = "Descripción" required>
-          <input id="registerLocation" type = "text" placeholder = "Ubicación" required>
-          <button class="btn" id = "btnShare"> Share </button>
-         <div class="preview" id="here">
-         </div>
-      </form>
-  </main>
-  <footer>
-      <div class = "feedOptions">
-      <button class = "btn" id = "homeSH"> home </button>
-      <button class = "btn" id= "profileSH"> profile </button>
+  const viewNewPost = `
+  <div id = "backgroundNewPost">
+    <div id= 'gridPost'>
+      <div class = 'p1'>   
+        <div><p>Bichigram</p></div>
+        <div><button class="btn" id="logoutBtn2"> </button></div>
       </div>
-  </footer>
+      <div class= 'p2'>
+          <form class = "inputForm">
+              <div id= 'postPhoto'>
+                <div class="preview" id="here"> </div>
+                <p>Sube tu bicho :)</p>
+                <input type="file" id="imgUpload" name="img" accept="image/*">
+              </div><br>
+                <input id="registerDescription" type = "text" placeholder = "Descripción" required><br>
+                <input id="registerLocation" type = "text" placeholder = "Ubicación" required><br>
+                <button class="btn" id = "btnShare"> Share </button>
+          </form>
+      </div>
+      <div class= 'p3'> 
+        <nav>
+          <ul>
+              <li class="home">
+                  <a  href="#/home"></a>
+              </li>
+              <li class ="newpost">
+                  <a  href="#/newpost">  </a>
+              </li>
+              <li class='profile' >
+                  <a href="#/profile">  </a>
+              </li>
+        </ul>
+        </nav>
+      </div>
+  </div>
 </div>`;
 
   // nodos
@@ -41,7 +56,7 @@ export default () => {
 
   // Display the image
   imgUpload.onchange = function (e) {
-    // FileReader permite leer files o blob del lado cliente de manera asíncrona
+  // FileReader permite leer files o blob del lado cliente de manera asíncrona
     const reader = new FileReader();
     // Lee el archivo y lo manda a FileReader
     reader.readAsDataURL(e.target.files[0]);
@@ -80,13 +95,16 @@ export default () => {
     const loc = registerLocation.value;
     const user = firebase.auth().currentUser;
     docRef.add({
+      id: user.uid,
       user: user.displayName,
+      userphoto: user.photoURL,
       postimg: url,
       description: descr,
       location: loc,
       date: firebase.firestore.Timestamp.fromDate(new Date()),
       counter: 0,
-    }).then(console.log(docRef));
+    }).then(console.log(docRef))
+      .catch(error => console.log(error));
   });
 
   return divElement;

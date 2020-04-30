@@ -3,7 +3,7 @@ import { changeView } from '../view-controler/router.js';
 
 export default () => {
   const viewLogin = `<div class = "gridContainer login-container">
-    <div class="bichi-img-container flex"> <img class="bichi-img" src="imgs/bichi-inicio.png"> </img> </div>
+    <div class="bichi-img-container flex"> </img> </div>
     <main>
     <h1 class="flex bichigram-title">Bichigram</h1>
     <div class="login-subtitle flex flex-column"><p> Una red social</p> 
