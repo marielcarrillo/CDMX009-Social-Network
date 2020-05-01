@@ -34,12 +34,8 @@
     "stylelint-config-recommended": "^2.2.0"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@firebase/firestore": "^1.14.1"
-=======
     "@firebase/firestore": "^1.14.1",
     "@firebase/storage": "^0.3.32",
     "@google-cloud/storage": "^4.7.0"
->>>>>>> 91aa8c5b6a14bf1cc3c1b69f0d10f3218218e977
   }
 }
