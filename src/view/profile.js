@@ -46,7 +46,7 @@ export default () => {
     const profileInfo = `
    <div> 
    <img src="${user.photoURL}" width="320"> 
-   <p> Name: ${user.displayName} </p>
+   <p> ${user.displayName} </p>
    </div>
    `;
     showInfo.innerHTML = profileInfo;
@@ -57,15 +57,18 @@ export default () => {
   function renderPost(doc) {
     const div = document.createElement('div');
     const image = document.createElement('img');
+    image.width = '200';
     const description = document.createElement('p');
+    description.className = 'descriptionProf';
     const location = document.createElement('p');
+    location.className = 'descriptionProf';
     const cross = document.createElement('button');
 
     div.setAttribute('data-id', doc.id);
     image.src = doc.data().postimg;
     description.textContent = doc.data().description;
     location.textContent = doc.data().location;
-    cross.textContent = 'DELETE';
+    cross.innerHTML = 'DELETE';
 
     div.appendChild(image);
     div.appendChild(description);
@@ -82,7 +85,7 @@ export default () => {
     });
   }
   // get the data
-  postsRef.where('id', '==', user.id).onSnapshot((snap) => {
+  postsRef.where('id', '==', user.uid).onSnapshot((snap) => {
     const changes = snap.docChanges();
     changes.forEach((change) => {
       if (change.type === 'added') {
