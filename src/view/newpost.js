@@ -1,9 +1,13 @@
 
+const welcomeview = document.querySelector('#background1');
+
 export default () => {
+  welcomeview.innerHTML = ' ';
   // firebase
   const db = firebase.firestore();
   const storage = firebase.storage();
   const docRef = db.collection('posts');
+  const auth = firebase.auth();
 
   // var globales
   let url;
@@ -12,7 +16,7 @@ export default () => {
     <div id= 'gridPost'>
       <div class = 'p1'>   
         <div><p>Bichigram</p></div>
-        <div><button class="btn" id="logoutBtn2"> </button></div>
+        <div><button class="btn" id="logoutBtn2"> <img class="icon" src='/imgBichigram/logout.png'> </button></div>
       </div>
       <div class= 'p2'>
           <form class = "inputForm">
@@ -30,13 +34,13 @@ export default () => {
         <nav>
           <ul>
               <li class="home">
-                  <a  href="#/home"></a>
+                  <a  href="#/home"><img src='/imgBichigram/btnHome.png'></a>
               </li>
               <li class ="newpost">
-                  <a  href="#/newpost">  </a>
+                  <a  href="#/newpost"> <img src='/imgBichigram/btnShare.png'> </a>
               </li>
               <li class='profile' >
-                  <a href="#/profile">  </a>
+                  <a href="#/profile"> <img src='/imgBichigram/btnProf.png'> </a>
               </li>
         </ul>
         </nav>
@@ -56,7 +60,11 @@ export default () => {
 
   // Display the image
   imgUpload.onchange = function (e) {
+<<<<<<< HEAD
   // FileReader permite leer files o blob del lado cliente de manera asíncrona
+=======
+    // FileReader permite leer files o blob del lado cliente de manera asíncrona
+>>>>>>> 91aa8c5b6a14bf1cc3c1b69f0d10f3218218e977
     const reader = new FileReader();
     // Lee el archivo y lo manda a FileReader
     reader.readAsDataURL(e.target.files[0]);
@@ -72,8 +80,8 @@ export default () => {
   };
 
   // func + listener for uploading the image to storage
-  imgUpload.addEventListener('change', (e) => {
-  // get file
+  imgUpload.addEventListener('change', () => {
+    // get file
     const image = divElement.querySelector('#imgUpload').files[0];
     const imageName = image.name;
 
@@ -85,12 +93,10 @@ export default () => {
       .then(snap => snap.ref.getDownloadURL())
       .then((link) => {
         url = link;
-        console.log(url);
       });
   });
-
-  // sending the info to firestore
-  shareImg.addEventListener('click', (e) => {
+  //  sending the info to firestore 
+  shareImg.addEventListener('click', () => {
     const descr = registerDescription.value;
     const loc = registerLocation.value;
     const user = firebase.auth().currentUser;
@@ -103,8 +109,17 @@ export default () => {
       location: loc,
       date: firebase.firestore.Timestamp.fromDate(new Date()),
       counter: 0,
-    }).then(console.log(docRef))
-      .catch(error => console.log(error));
+      comments: null,
+    }).then(() => { window.location.hash = '#/home'; });
+  });
+
+  // logout
+  const logout = divElement.querySelector('#logoutBtn2');
+  logout.addEventListener('click', (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+      window.location.hash = '#/login';
+    });
   });
 
   return divElement;

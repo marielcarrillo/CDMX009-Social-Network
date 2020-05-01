@@ -21,9 +21,8 @@ const initFirebase = () => {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
+  firebase.firestore();
 };
-
-
 
 window.addEventListener('load', initFirebase);
 window.addEventListener('load', init);

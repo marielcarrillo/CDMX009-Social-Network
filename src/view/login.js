@@ -1,22 +1,29 @@
-// eslint-disable-next-line import/no-cycle
-import { changeView } from '../view-controler/router.js';
-
+const welcomeview = document.querySelector('#background1');
 export default () => {
-  const viewLogin = `<div class = "gridContainer login-container">
-    <div class="bichi-img-container flex"> </img> </div>
-    <main>
-    <h1 class="flex bichigram-title">Bichigram</h1>
-    <div class="login-subtitle flex flex-column"><p> Una red social</p> 
-    <p>para aprender de artrópodos!</p></div>
-      <form class="flex flex-column">
-        <input type='email' placeholder='Email' id="emailText" class="input"> </input>
-        <input type='password' placeholder='Password' id="passwordText" class="input"> </input>
-        <button class='btn' id='loginBtn'> Log In </button>
-      </form>
-      <div class="newuser-text-container"> 
-      <div class="newuser-text"> ¿No tienes una cuenta? <a color="#fc8d97" href="#/newuser"> Regístrate</a> </div>
+  welcomeview.innerHTML = ' ';
+  const viewLogin = `
+    <div id="background2">  
+      <div id='gridLogin'>   
+          <div class='l1'>
+            <div><img class="bichiImg" src='/imgBichigram/bichiLogin.png'> </img></div>
+            <p >Bichigram</p>
+          </div>
+          <div class='l2'>
+            <p>Una red social <br>para aprender de artrópodos!</p> 
+            <form class="form">
+              <input type='email' placeholder='Email' id="emailText" class="input"> </input><br>
+              <input type='password' placeholder='Password' id="passwordText" class="input"></input><br>
+              <button class='btn' id='loginBtn'> Log In </button>
+            </form>
+            <div class = "fbYG">
+                <button class = "fb"> <img class="icon" src='/imgBichigram/fb.png'> </button>
+                <button class = "google"> <img class="icon" src='/imgBichigram/google.png'> </button>
+            </div>
+          </div> 
+          <div class='l3'>
+            <p> ¿No tienes una cuenta? <a color="#fc8d97" href="#/newuser"> Regístrate</a> </p>
+          </div>
       </div>
-    </main>
     </div>`;
 
   //  nodes (for the creation of the HTML elements)
@@ -24,15 +31,12 @@ export default () => {
   divElement.innerHTML = viewLogin;
 
   //  nodes (to get the DOM elements inside the form and initialize the login function)
-  const footer = document.querySelector('.footer');
+
   const emailText = divElement.querySelector('#emailText');
   const passwordText = divElement.querySelector('#passwordText');
   const loginBtn = divElement.querySelector('#loginBtn');
-
-  /*function removeFooter() {
-    footer.classList.toggle('no-footer');
-  }
-  window.addEventListener('load', removeFooter());*/
+  const fbBtn = divElement.querySelector('.fb');
+  const gBtn = divElement.querySelector('.google');
 
   //  login event
   loginBtn.addEventListener('click', () => {
@@ -40,20 +44,30 @@ export default () => {
     const pass = passwordText.value;
     const auth = firebase.auth();
 
-    //  check the user status
-    auth.onAuthStateChanged((user) => {
-      if (user != null) {
-        console.log(`user logged in${user}`);
-      } else {
-        console.log('no user found ');
-      }
-    });
-
     //  sign in with firebase functions
     const promise = auth.signInWithEmailAndPassword(email, pass);
-    promise.then(() => changeView('#/home'));
+    promise.then(() => { window.location.hash = '#/home'; });
     promise.catch(err => (err));
   });
 
-  return divElement;
+
+  //  facebook sign up
+  fbBtn.addEventListener('click', () => {
+    const auth = firebase.auth();
+    const provider = new firebase.auth.FacebookAuthProvider();
+    const promise = auth.signInWithPopup(provider);
+
+    promise.then(() => { window.location.hash = '#/home'; });
+    promise.catch(err => (err));
+  });
+
+  //  google sign up
+  gBtn.addEventListener('click', () => {
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const promise = auth.signInWithPopup(provider);
+    promise.then(() => { window.location.hash = '#/home' });
+    promise.catch(err => (err));
+  });
+  return divElement; 
 };

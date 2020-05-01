@@ -5,18 +5,23 @@ const changeView = (route) => {
   container.innerHTML = '';
   switch (route) {
     case '#/home':
-    { return container.appendChild(components.home()); }
+      container.appendChild(components.home());
+      break;
     case '#/newpost':
-    { return container.appendChild(components.newpost()); }
+      container.appendChild(components.newpost());
+      break;
     case '#/profile':
-    { return container.appendChild(components.profile()); }
+      container.appendChild(components.profile());
+      break;
     case '#/login':
-    { return container.appendChild(components.login()); }
+      container.appendChild(components.login());
+      break;
     case '#/newuser':
-    { return container.appendChild(components.newuser()); }
+      container.appendChild(components.newuser());
+      break;
     default:
       break;
-  }// fin de switch
+  }
 };
 
 export { changeView };
