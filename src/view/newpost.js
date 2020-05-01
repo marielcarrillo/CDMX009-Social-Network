@@ -60,11 +60,7 @@ export default () => {
 
   // Display the image
   imgUpload.onchange = function (e) {
-<<<<<<< HEAD
-  // FileReader permite leer files o blob del lado cliente de manera asíncrona
-=======
     // FileReader permite leer files o blob del lado cliente de manera asíncrona
->>>>>>> 91aa8c5b6a14bf1cc3c1b69f0d10f3218218e977
     const reader = new FileReader();
     // Lee el archivo y lo manda a FileReader
     reader.readAsDataURL(e.target.files[0]);

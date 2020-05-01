@@ -1,12 +1,34 @@
-// eslint-disable-next-line import/no-cycle
-import { changeView } from '../view-controler/router.js';
-
+const welcomeview = document.querySelector('#background1');
 export default () => {
+  welcomeview.innerHTML = ' ';
   const viewProfile = `
-      <h1>Aquí va el profile☆</h1>
-      <button id="editProfile" type="submit" class="btn"> Edit Profile </button>
-      <div id="profile"></div>
-      <div id="posts"></div>
+      <div id='backgroundProfile'>
+      <div id= 'grdProfile'>
+        <div id='prof1'>   
+          <div><p>Bichigram</p></div>
+          <div><button class="btn" id="logoutBtn3"> <img class="icon" src='/imgBichigram/logout.png'> </button></div>
+        </div>
+        <div class= 'prof2'>
+          <div class="profilePost"></div>
+          <div class="userPosts"></div>
+        </div>
+        <div class= 'prof3'> 
+          <nav>
+            <ul>
+                <li class="home">
+                    <a  href="#/home"><img src='/imgBichigram/btnHome.png'></a>
+                </li>
+                <li class ="newpost">
+                    <a  href="#/newpost"> <img src='/imgBichigram/btnShare.png'> </a>
+                </li>
+                <li class='profile' >
+                    <a href="#/profile"> <img src='/imgBichigram/btnProf.png'> </a>
+                </li>
+          </ul>
+          </nav>
+      </div>
+      </div>
+      
   `;
   // nodos
   const divElement = document.createElement('div');
@@ -15,8 +37,8 @@ export default () => {
   const postsRef = db.collection('posts');
 
   // elementos del DOM
-  const showInfo = divElement.querySelector('#profile');
-  const userPosts = divElement.querySelector('#posts');
+  const showInfo = divElement.querySelector('.profilePost');
+  const userPosts = divElement.querySelector('.userPosts');
 
   // get the Profile info
   const user = firebase.auth().currentUser;
