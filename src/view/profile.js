@@ -82,7 +82,7 @@ export default () => {
     });
   }
   // get the data
-  postsRef.where('user', '==', 'Azul').onSnapshot((snap) => {
+  postsRef.where('id', '==', user.id).onSnapshot((snap) => {
     const changes = snap.docChanges();
     changes.forEach((change) => {
       if (change.type === 'added') {

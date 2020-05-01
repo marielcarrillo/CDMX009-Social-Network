@@ -60,7 +60,6 @@ export default () => {
             <div class='location'><p>${doc.data().location}</p></div>
             <div class='imagePost'><img width="100%" src="${doc.data().postimg}" /></div>
             <button class='likes'><img class='membicha' id='${doc.id}' src='./imgBichigram/membicha.png'>${doc.data().counter}</button> 
-            <button class='delete-post' id='${doc.id}'>borrar</button> <button class='edit-post' id='${doc.id}'> editar</button>
             <textarea class= 'comments'> </textarea>
             <button id='btnComm'> comentar</button>
         </div>`;
