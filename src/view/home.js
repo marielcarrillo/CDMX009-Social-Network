@@ -72,6 +72,7 @@ export default () => {
             <input type='text' name='comment' class='comments'> </input>
             <button> comentar</button>
             </form>
+
             <div class='comments-container' id='comment_${doc.id}'>
             </div>
         </div>`;
