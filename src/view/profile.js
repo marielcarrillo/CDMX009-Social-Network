@@ -108,7 +108,8 @@ export default () => {
         const newLoc = document.querySelector('.photoLoc');
         const setLocation = newLoc.value;
 
-        // here we set the new description and location, *Necesitan actualizarse ambos campos
+        // here we set the new description and location,
+        // *Necesitan actualizarse ambos campos, sino se queda como "null"
         return editThis.update({
           description: setDescription,
           location: setLocation,
