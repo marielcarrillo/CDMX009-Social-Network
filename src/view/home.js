@@ -1,6 +1,6 @@
-const welcomeview= document.querySelector('#background1')
+const welcomeview = document.querySelector('#background1');
 export default () => {
-  welcomeview.innerHTML= '';
+  welcomeview.innerHTML = '';
   const viewHome = `
   <div id=backgroundHome>
     <div id= 'gridHome'> 
@@ -40,10 +40,8 @@ export default () => {
 
   // initializing firestore
   const db = firebase.firestore();
-  const postsRef = db.collection('posts').orderBy("date", "desc");
+  const postsRef = db.collection('posts').orderBy('date', 'desc');
   const auth = firebase.auth();
-  
-  // const userId = user.doc.data().id;
 
   // calling the docs and adding to the html
   postsRef.onSnapshot((snap) => {
@@ -71,16 +69,28 @@ export default () => {
     //  Getting all the 'like' buttons to be manipulated in a node list
     const likes = document.querySelectorAll('.likes');
     //  Increments the counter (likes) to the target 'me embicha' button
-    likes.forEach(node=> node.addEventListener('click', e =>{
+    likes.forEach(node => node.addEventListener('click', (e) => {
       const id = e.target.id;
       const likesRef = db.collection('posts').doc(id);
       const increment = firebase.firestore.FieldValue.increment(1);
-        likesRef.update({
+      likesRef.update({
         counter: increment,
-        });
+      });
+    }));
+
+    //  comments
+    const forms = document.querySelectorAll('.formComment');
+    forms.forEach(node => node.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = e.target.id;
+      const text = e.target.children[0].value;
+      db.collection('posts').doc(id).update({
+        comments: text,
+      })
+        .then(() => console.log('nice'));
     }));
   });
- 
+
   //  logout
   const logout = divElement.querySelector('#logoutBtn1');
   logout.addEventListener('click', (e) => {

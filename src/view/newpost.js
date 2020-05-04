@@ -91,7 +91,7 @@ export default () => {
         url = link;
       });
   });
-  //  sending the info to firestore 
+  //  sending the info to firestore
   shareImg.addEventListener('click', () => {
     const descr = registerDescription.value;
     const loc = registerLocation.value;
@@ -105,7 +105,6 @@ export default () => {
       location: loc,
       date: firebase.firestore.Timestamp.fromDate(new Date()),
       counter: 0,
-      comments: null,
     }).then(() => { window.location.hash = '#/home'; });
   });
 

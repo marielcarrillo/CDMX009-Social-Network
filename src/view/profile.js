@@ -14,7 +14,7 @@ export default () => {
         </div>
         <div class= 'prof3'> 
           <nav>
-            <ul>
+            <ul>   
                 <li class="home">
                     <a  href="#/home"><img src='/imgBichigram/btnHome.png'></a>
                 </li>
@@ -133,7 +133,7 @@ export default () => {
       if (change.type === 'added') {
         renderPost(change.doc);
       } else if (change.type === 'removed') {
-        const div = userPosts.querySelector(`[data-id=${change.doc.id}]`);
+        const div = userPosts.querySelector('[data-id=' + change.doc.id + ']');
         renderPost.removeChild(div);
       }
     });
