@@ -72,7 +72,7 @@ export default () => {
             <input type='text' name='comment' class='comments'> </input>
             <button> comentar</button>
             </form>
-            <div class='comments-container' id='comment_${doc.id}'>
+            <div class='comments-container' id='${doc.id}'>
             </div>
         </div>`;
       const nodo = document.createElement('div');
@@ -106,7 +106,8 @@ forms.forEach(node=> node.addEventListener ('submit', e => {
   }).then(() => {
     const commentsRef = db.collection('posts').doc(id).collection('comments');
     commentsRef.onSnapshot((snap) => {
-      const c = document.querySelector('' + "#" + 'comment_' + id + '')    
+      const c = document.querySelector('' + "#" + id + '')    
+      console.log(c)
       c.innerHTML = '';
       snap.forEach((doc) => {
         const divComment = `

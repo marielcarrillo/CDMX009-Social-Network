@@ -412,7 +412,7 @@
 }
 
 #backgroundHome {
-  background-image: url("/imgBichigram/fondo1.jpg");
+  background-image: url("./imgBichigram/fondo1.jpg");
   background-size: cover;
   margin: 0;
 }
