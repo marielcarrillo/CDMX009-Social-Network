@@ -57,7 +57,6 @@ export default () => {
   function renderPost(doc) {
     const div = document.createElement('div');
     const image = document.createElement('img');
-    image.width = '200';
     const description = document.createElement('p');
     description.className = 'descriptionProf';
 
@@ -96,18 +95,18 @@ export default () => {
     editBtn.addEventListener('click', (e) => {
       const id = e.target.parentElement.getAttribute('data-id');
       const divModal = `<div id="edit-modal" class="modal">
-      <input class="photoDesc" type = "text" placeholder = "${doc.data().description}" required/>
-      <input class="photoLoc" type = "text" placeholder = "${doc.data().location}" required/>
-      <button type="submit" class="edit-ok"> LISTO! </button>
+      <input class='edit' id="photoDesc" type = "text" placeholder = "${doc.data().description}" required/>
+      <input class='edit' id="photoLoc" type = "text" placeholder = "${doc.data().location}" required/>
+      <button type="submit" class='btn' id="edit-ok"> LISTO! </button>
     </div>`;
       userPosts.innerHTML = divModal;
-      const editOk = document.querySelector('.edit-ok');
+      const editOk = document.querySelector('#edit-ok');
       // this get the data to update
       editOk.addEventListener('click', (e) => {
         const editThis = postsRef.doc(id);
-        const newDesc = document.querySelector('.photoDesc');
+        const newDesc = document.querySelector('#photoDesc');
         const setDescription = newDesc.value;
-        const newLoc = document.querySelector('.photoLoc');
+        const newLoc = document.querySelector('#photoLoc');
         const setLocation = newLoc.value;
 
         // here we set the new description and location,
@@ -119,7 +118,7 @@ export default () => {
           .then(() => {
             console.log('Document successfully updated!');
             // *quiero cambiar la vista o cerrar la modal, AIUDA
-            userPosts.innerHTML = postsRef;
+            window.location.hash = '#/home';
           })
           .catch((error) => {
             // The document probably doesn't exist.
@@ -138,6 +137,15 @@ export default () => {
         const div = userPosts.querySelector('[data-id=' + change.doc.id + ']');
         renderPost.removeChild(div);
       }
+    });
+  });
+
+  //  logout
+  const logout = divElement.querySelector('#logoutBtn3');
+  logout.addEventListener('click', (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+      window.location.hash = '#/login';
     });
   });
 
