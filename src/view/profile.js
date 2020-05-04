@@ -66,9 +66,11 @@ export default () => {
 
     const cross = document.createElement('button');
     cross.innerHTML = 'DELETE';
+    cross.className = 'btn';
 
     const editBtn = document.createElement('button');
     editBtn.innerHTML = 'EDIT';
+    editBtn.className = 'btn';
 
     div.setAttribute('data-id', doc.id);
     image.src = doc.data().postimg;
@@ -117,7 +119,7 @@ export default () => {
           .then(() => {
             console.log('Document successfully updated!');
             // *quiero cambiar la vista o cerrar la modal, AIUDA
-            divElement.innerHTML = viewProfile;
+            userPosts.innerHTML = postsRef;
           })
           .catch((error) => {
             // The document probably doesn't exist.
